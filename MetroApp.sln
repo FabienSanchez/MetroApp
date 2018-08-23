@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroApp", "MetroApp\MetroApp.csproj", "{E4491BB5-E1AA-415D-B397-D97A2193241A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroAppRequest", "MetroAppRequest\MetroAppRequest\MetroAppRequest.csproj", "{FF6E5640-BD8D-4BBD-9DC0-513375564A3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroAppTest", "MetroAppTest\MetroAppTest\MetroAppTest.csproj", "{74867F11-7E69-4D8B-A8DF-56370D2F6C66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E4491BB5-E1AA-415D-B397-D97A2193241A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4491BB5-E1AA-415D-B397-D97A2193241A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4491BB5-E1AA-415D-B397-D97A2193241A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF6E5640-BD8D-4BBD-9DC0-513375564A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6E5640-BD8D-4BBD-9DC0-513375564A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6E5640-BD8D-4BBD-9DC0-513375564A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6E5640-BD8D-4BBD-9DC0-513375564A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74867F11-7E69-4D8B-A8DF-56370D2F6C66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74867F11-7E69-4D8B-A8DF-56370D2F6C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74867F11-7E69-4D8B-A8DF-56370D2F6C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74867F11-7E69-4D8B-A8DF-56370D2F6C66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
