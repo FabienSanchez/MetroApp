@@ -1,0 +1,38 @@
+﻿[
+  {
+    "id": "SEM:57",
+    "shortName": "57",
+    "longName": "GRENOBLE Victor Hugo / ST ISMIER Bois Français",
+    "color": "522E91",
+    "textColor": "FFFFFF",
+    "mode": "BUS",
+    "type": "FLEXO"
+  },
+  {
+    "id": "SEM:13",
+    "shortName": "13",
+    "longName": "Meylan Lycée du Grésivaudan / Poisat Prémol",
+    "color": "00BC9E",
+    "textColor": "FFFFFF",
+    "mode": "BUS",
+    "type": "PROXIMO"
+  },
+  {
+    "id": "SEM:C1",
+    "shortName": "C1",
+    "longName": "GRENOBLE Cité Jean Macé / MEYLAN Maupertuis",
+    "color": "FFE000",
+    "textColor": "000000",
+    "mode": "BUS",
+    "type": "CHRONO"
+  },
+  {
+    "id": "SEM:C2",
+    "shortName": "C2",
+    "longName": "GRENOBLE Louise Michel / CLAIX Pont Rouge",
+    "color": "FFD138",
+    "textColor": "000000",
+    "mode": "BUS",
+    "type": "CHRONO"
+  }
+]

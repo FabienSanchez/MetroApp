@@ -1,0 +1,33 @@
+﻿[
+  {
+    "id": "SEM:1601",
+    "name": "GRENOBLE, VICTOR HUGO",
+    "lon": 5.72492,
+    "lat": 45.18955,
+    "lines": [
+      "SEM:C1",
+      "SEM:57",
+      "SEM:13"
+    ]
+  },
+  {
+    "id": "SEM:1602",
+    "name": "GRENOBLE, VICTOR HUGO",
+    "lon": 5.72533,
+    "lat": 45.18906,
+    "lines": [
+      "SEM:C2",
+      "SEM:57"
+    ]
+  },
+  {
+    "id": "SEM:1696",
+    "name": "GRENOBLE, CHAVANT",
+    "lon": 5.73233,
+    "lat": 45.18502,
+    "lines": [
+      "SEM:13",
+      "SEM:C2"
+    ]
+  }
+]

@@ -1,55 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace MetroAppRequest
 {
-    public class MetroRequest
+    public class MetroRequest : IStopsProvider
     {
-		private UriBuilder MetroUriBuilder = new UriBuilder("https://data.metromobilite.fr");
+        public static readonly string BaseUrl = "https://data.metromobilite.fr";
 
-		public Uri NearStopsUri
-		{
-			get
-			{
-				string lat = "45.18547757558403";
-				string lng = "5.727771520614624";
-				int dist = 1000;
-				bool details = false;
+        static NearStopUri NearStopsUri = new NearStopUri();
 
-				string Query = $"x={lng}&y={lat}&dist={dist}&details={details}";
+        static LinesUri LinesUri = new LinesUri();
 
-				MetroUriBuilder.Path = "api/linesNear/json";
-				MetroUriBuilder.Query = Query;
+        public string NearStops() => Get(NearStopsUri.Uri);
 
-				return MetroUriBuilder.Uri;
-			}
-		}
+        public string Lines([Optional] string[] codes)
+        {
+            LinesUri.Params(codes);
+            return Get(LinesUri.Uri);
+        }
 
-		public string NearLines()
-		{
-			return Get(NearStopsUri);
-		}
+        static string Get(Uri uri)
+        {
+            WebRequest request = WebRequest.Create(uri);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-		string Get(Uri uri)
-		{
-			WebRequest request = WebRequest.Create(uri);
-			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
 
-			Stream dataStream = response.GetResponseStream();
-			StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
 
-			string responseFromServer = reader.ReadToEnd();
+            reader.Close();
+            dataStream.Close();
+            response.Close();
 
-			reader.Close();
-			dataStream.Close();
-			response.Close();
-
-			return responseFromServer;
-		}
-	}
+            return responseFromServer;
+        }
+    }
 }
