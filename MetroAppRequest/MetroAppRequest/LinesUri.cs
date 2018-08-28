@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace MetroAppRequest
 {
-    class LinesUri
+    public class LinesUri
     {
         private UriBuilder UriBuilder = new UriBuilder(MetroRequest.BaseUrl);
 

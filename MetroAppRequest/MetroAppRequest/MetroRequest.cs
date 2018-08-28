@@ -9,9 +9,9 @@ namespace MetroAppRequest
     {
         public static readonly string BaseUrl = "https://data.metromobilite.fr";
 
-        static NearStopUri NearStopsUri = new NearStopUri();
+        public static NearStopUri NearStopsUri = new NearStopUri();
 
-        static LinesUri LinesUri = new LinesUri();
+        public static LinesUri LinesUri = new LinesUri();
 
         public string NearStops() => Get(NearStopsUri.Uri);
 

@@ -1,0 +1,64 @@
+﻿<Page x:Class="MetroMap.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MetroMap"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MetroMap - Home">
+
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="AliceBlue"></SolidColorBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid Grid.Column="0">
+                <Border Style="{StaticResource listHeaderStyle}">
+                    <Label Style="{StaticResource listHeaderTextStyle}">Metro Map</Label>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Style="{StaticResource headerTextStyle}">
+                    Near Stops Options
+                </Label>
+
+                <StackPanel Name="NearStopsForm" Grid.Row="1">
+
+                    <Label Style="{StaticResource labelStyle}">Latitude :</Label>
+                    <TextBox Text="{Binding Path=Lat}" Style="{StaticResource form-control}"/>
+
+                    <Label Style="{StaticResource labelStyle}">Longitude :</Label>
+                    <TextBox Text="{Binding Path=Lng}" Style="{StaticResource form-control}"/>
+
+                    <Label Style="{StaticResource labelStyle}">Rayon :</Label>
+                    <TextBox Text="{Binding Path=Dist}" Style="{StaticResource form-control}"/>
+
+                    <CheckBox IsChecked="{Binding Path=Details}" Content="Details"/>
+
+                    <Button Click="Button_Click" Style="{StaticResource buttonStyle}">Get</Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

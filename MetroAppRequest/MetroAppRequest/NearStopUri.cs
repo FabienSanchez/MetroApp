@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MetroAppRequest
 {
-    class NearStopUri
+    public class NearStopUri
     {
         private UriBuilder UriBuilder = new UriBuilder(MetroRequest.BaseUrl);
 
@@ -16,32 +16,19 @@ namespace MetroAppRequest
 
         private string Query => $"x={Lng}&y={Lat}&dist={Dist}&details={Details}";
 
-        public Uri Uri => UriBuilder.Uri;
+        //Params
+        public string Lat { get; set; } = "45.18547757558403";
+        public string Lng { get; set; } = "5.727771520614624";
+        public int Dist { get; set; } = 1000;
+        public bool Details { get; set; } = false;
 
-        private string Lat { get; set; } = "45.18547757558403";
-        private string Lng { get; set; } = "5.727771520614624";
-        private int Dist { get; set; } = 1000;
-        private bool Details { get; set; } = false;
+        public Uri Uri => BuildUri();
 
-        public void Params([Optional] string lat, [Optional] string lng, [Optional] int? dist, [Optional]  bool? details)
-        {
-            Lat = lat ?? Lat;
-            Lng = lng ?? Lng;
-            Dist = dist ?? Dist;
-            Details = details ?? Details;
-
-            BuildUri();
-        }
-
-        private void BuildUri()
+        private Uri BuildUri()
         {
             UriBuilder.Path = Path;
             UriBuilder.Query = Query;
-        }
-
-        public NearStopUri()
-        {
-            BuildUri();
+            return UriBuilder.Uri;
         }
     }
 }

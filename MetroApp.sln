@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroAppRequest", "MetroApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroAppTests", "MetroAppTests\MetroAppTests.csproj", "{0E32B7E2-C7CC-4C85-96E6-04BA17B92FE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroMap", "MetroMap\MetroMap.csproj", "{E5DE183F-BA54-4907-BBB8-EE768FAAA472}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0E32B7E2-C7CC-4C85-96E6-04BA17B92FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E32B7E2-C7CC-4C85-96E6-04BA17B92FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E32B7E2-C7CC-4C85-96E6-04BA17B92FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5DE183F-BA54-4907-BBB8-EE768FAAA472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5DE183F-BA54-4907-BBB8-EE768FAAA472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5DE183F-BA54-4907-BBB8-EE768FAAA472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5DE183F-BA54-4907-BBB8-EE768FAAA472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
