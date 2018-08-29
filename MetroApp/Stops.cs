@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace MetroApp
 {
+
     public class Stops
     {
         public List<Stop> StopCollection;

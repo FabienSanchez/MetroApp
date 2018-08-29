@@ -18,11 +18,18 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
-        
+
         <Style x:Key="form-control" TargetType="{x:Type TextBox}">
             <Setter Property="Height" Value="22"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Width" Value="100" />
+        </Style>
+        
+        <Style x:Key="form-check" TargetType="{x:Type CheckBox}">
+            <Setter Property="Height" Value="22"/>
+            <Setter Property="Width" Value="100" />
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
         <!-- DataGrid header style -->
@@ -49,9 +56,10 @@
 
         <!-- Button style -->
         <Style x:Key="buttonStyle" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="125" />
-            <Setter Property="Height" Value="25" />
-            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
     </Application.Resources>

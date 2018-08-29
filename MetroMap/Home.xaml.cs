@@ -39,5 +39,7 @@ namespace MetroMap
                 this.NavigationService.Navigate(StopsResults);
             }
         }
+
+
     }
 }

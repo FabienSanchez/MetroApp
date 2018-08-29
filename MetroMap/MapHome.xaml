@@ -1,0 +1,62 @@
+﻿<Page x:Class="MetroMap.MapHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MetroMap"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MapHome">
+
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="AliceBlue"></SolidColorBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid Grid.Column="0">
+                <Border Style="{StaticResource listHeaderStyle}">
+                    <Label Style="{StaticResource listHeaderTextStyle}">Metro Map</Label>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <m:Map Grid.Row="2" 
+                       CredentialsProvider="Ao_Sk_QrCGVh3rnMEcoVmfQP6_D2ps1y_x8SmkfwpTXrJDZ-yqv4-TGgzwAfpM7o"
+                       x:Name="MetroMap"
+                       Center="45.18547757558403,5.727771520614624" 
+                       ZoomLevel="14"
+                       Mode="AerialWithLabels"/>
+
+                <TextBlock Name="NearStopsForm" Grid.Row="0">
+
+                    <Label Style="{StaticResource labelStyle}">Latitude</Label>
+                    <TextBox Text="{Binding Path=Lat}" Style="{StaticResource form-control}"/>
+
+                    <Label Style="{StaticResource labelStyle}">Longitude</Label>
+                    <TextBox Text="{Binding Path=Lng}" Style="{StaticResource form-control}"/>
+
+                    <Label Style="{StaticResource labelStyle}">Rayon</Label>
+                    <TextBox Text="{Binding Path=Dist}" Style="{StaticResource form-control}"/>
+
+                    <CheckBox IsChecked="{Binding Path=Details}" Content="Details" Style="{StaticResource form-check}"/>
+
+                    <Button Click="Button_Click" Style="{StaticResource buttonStyle}">Get</Button>
+                </TextBlock>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

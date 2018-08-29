@@ -11,7 +11,20 @@
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="stopItemTemplate">
-                <Label Content="{Binding Path=Name}"/>
+                <StackPanel>
+                    <Label Content="{Binding Name}"/>
+
+                    <ListBox Name="lineListBox" ItemsSource="{Binding Lines}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Label Content="{Binding ShortName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </StackPanel>
             </DataTemplate>
         </Grid.Resources>
 
