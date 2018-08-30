@@ -27,32 +27,118 @@ namespace MetroMap
 
         public static NearStopUri NearStopsUri = MetroRequest.NearStopsUri;
 
+        MapLayer pinLayer = new MapLayer();
+
+        MapLayer lineLayer = new MapLayer()
+        {
+        };
+
         public MapHome()
         {
             InitializeComponent();
-            NearStopsForm.DataContext = NearStopsUri;
+            MetroMap.Center = NearStopsUri.CenterLocation;
+            DataContext = NearStopsUri;
+            MetroMap.Children.Add(lineLayer);
+            MetroMap.Children.Add(pinLayer);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MetroMap.Children.Clear();
+            pinLayer.Children.Clear();
+            lineLayer.Children.Clear();
+
+            MetroMap.Center = NearStopsUri.CenterLocation;
             DrawCircle(NearStopsUri.CenterLocation, NearStopsUri.Dist);
 
             List<Stop> StopsResults = Stops.GetNearStops();
 
-            foreach (Stop stop in StopsResults)
+            if (StopsResults.Count > 0)
             {
-                Location pinLocation = new Location(stop.Lat, stop.Lon);
 
-                Pushpin pin = new Pushpin
+                foreach (Stop stop in StopsResults)
                 {
-                    Location = pinLocation
-                };
+                    Location pinLocation = new Location(stop.Lat, stop.Lon);
 
-                ToolTipService.SetToolTip(pin, stop.Name);
+                    Pushpin pin = new Pushpin
+                    {
+                        Location = pinLocation,
+                    };
 
-                MetroMap.Children.Add(pin);
+                    ToolTipService.SetToolTip(pin, stop.Name);
+
+                    pinLayer.Children.Add(pin);
+                }
+
+
+                foreach (MetroApp.Line line in Stops.LineCollection)
+                {
+                    DrawLine(line);
+                }
             }
+        }
+
+        Color RgbFromString(string str)
+        {
+            var strColor = str.Split(',').Select(item => byte.Parse(item)).ToArray();
+            return Color.FromRgb(strColor[0], strColor[1], strColor[2]);
+        }
+
+        private void DrawLine(MetroApp.Line line)
+        {
+            var coords = line.Geometry.Coordinates[0];
+            Color lineColor = RgbFromString(line.Properties.Couleur);
+            Color textColor = RgbFromString(line.Properties.CouleurTexte);
+
+            MapPolyline polyline = new MapPolyline
+            {
+                Stroke = new SolidColorBrush(lineColor),
+                StrokeThickness = 5,
+                Opacity = 0.7,
+                Locations = LocationsFromCoords(coords),
+            };
+
+            polyline.MouseEnter += new MouseEventHandler(lineMouseEnter);
+            polyline.MouseLeave += new MouseEventHandler(lineMouseLeave);
+
+            TextBlock label = new TextBlock
+            {
+                Text = $"{line.Properties.Numero} - {line.Properties.Libelle}",
+                Foreground = new SolidColorBrush(textColor),
+                Background = new SolidColorBrush(lineColor),
+                FontSize = 20,
+                //Visibility = Collapse;
+            };
+
+            lineLayer.Children.Add(label);
+
+            ToolTipService.SetToolTip(polyline, $"{line.Properties.Numero} - {line.Properties.Libelle}");
+
+            lineLayer.Children.Add(polyline);
+        }
+
+        private void lineMouseLeave(object sender, MouseEventArgs e)
+        {
+
+            //MapLayer.SetPosition(label, new Location(coords[0][1], coords[0][0]));
+        }
+
+        private void lineMouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private LocationCollection LocationsFromCoords(double[][] coords)
+        {
+            LocationCollection locations = new LocationCollection();
+
+            for (int i = 0; i < coords.Length; i++)
+            {
+                var curCoord = coords[i];
+                Location loc = new Location(curCoord[1], curCoord[0]);
+                locations.Add(loc);
+            }
+
+            return locations;
         }
 
         private void DrawCircle(Location CenterPosition, int Radius)
@@ -64,7 +150,7 @@ namespace MetroMap
                 Fill = FillColor,
                 Locations = CalculateCircle(CenterPosition, Radius)
             };
-            MetroMap.Children.Add(Circle);
+            pinLayer.Children.Add(Circle);
         }
 
         const double earthRadius = 6371000D;
@@ -96,7 +182,5 @@ namespace MetroMap
         {
             return degrees * (Math.PI / 180D);
         }
-
-
     }
 }

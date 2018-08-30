@@ -2,6 +2,7 @@
 using System.Net;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace MetroAppRequest
 {
@@ -15,7 +16,7 @@ namespace MetroAppRequest
 
         public string NearStops() => Get(NearStopsUri.Uri);
 
-        public string Lines([Optional] string[] codes)
+        public string Lines(List<string> codes)
         {
             LinesUri.Params(codes);
             return Get(LinesUri.Uri);

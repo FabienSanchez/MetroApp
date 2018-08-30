@@ -1,8 +1,10 @@
-﻿namespace MetroAppRequest
+﻿using System.Collections.Generic;
+
+namespace MetroAppRequest
 {
     public interface IStopsProvider
     {
         string NearStops();
-        string Lines(string[] codes);
+        string Lines(List<string> codes);
     }
 }

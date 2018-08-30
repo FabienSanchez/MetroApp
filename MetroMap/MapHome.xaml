@@ -37,9 +37,8 @@
                 <m:Map Grid.Row="2" 
                        CredentialsProvider="Ao_Sk_QrCGVh3rnMEcoVmfQP6_D2ps1y_x8SmkfwpTXrJDZ-yqv4-TGgzwAfpM7o"
                        x:Name="MetroMap"
-                       Center="45.18547757558403,5.727771520614624" 
-                       ZoomLevel="14"
-                       Mode="AerialWithLabels"/>
+                       ZoomLevel="15"
+                       Mode="Road"/>
 
                 <TextBlock Name="NearStopsForm" Grid.Row="0">
 

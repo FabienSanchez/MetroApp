@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MetroAppRequest
@@ -7,31 +8,25 @@ namespace MetroAppRequest
     {
         private UriBuilder UriBuilder = new UriBuilder(MetroRequest.BaseUrl);
 
-        private readonly string Path = "api/routers/default/index/routes";
+        private readonly string Path = "api/lines/json";
 
-        private string Query => $"codes={Codes}";
+        private string Query => $"types=ligne&codes={DashedCodes}";
 
-        public Uri Uri => UriBuilder.Uri;
+        public Uri Uri { get { BuildUri(); return UriBuilder.Uri; } }
 
         private string Codes { get; set; }
+        private string DashedCodes => Codes.Replace(':', '_');
 
-        public void Params([Optional] string[] codes)
+        public void Params(List<string> codes)
         {
             string strCodes = string.Join(",", codes);
             Codes = strCodes ?? Codes;
-
-            BuildUri();
         }
 
         private void BuildUri()
         {
             UriBuilder.Path = Path;
             UriBuilder.Query = Query;
-        }
-
-        public LinesUri()
-        {
-            BuildUri();
         }
     }
 }

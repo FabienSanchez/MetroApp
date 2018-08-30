@@ -32,7 +32,7 @@ namespace MetroApp.Tests
             Assert.AreEqual(4, result[0].Lines.Count);
 
             // Synchro on Lines & LinesId
-            Assert.AreEqual(result[0].LinesId.Length, result[0].Lines.Count);
+            Assert.AreEqual(result[0].Lines.Length, result[0].Lines.Count);
 
             // No wierd effect when not duplicated
             Assert.AreEqual(4, result[1].Lines.Count);
