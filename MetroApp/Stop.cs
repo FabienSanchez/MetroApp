@@ -36,12 +36,10 @@ namespace MetroApp
 
         public override string ToString()
         {
-            string tmp = $@"{Name}::{Id}
-    Lon : {Lon}
-    Lat : {Lat}
-    Lines :";
+            string tmp = $@"{Name}
+Lignes :";
 
-            Lines.ForEach((string line) => tmp += line);
+            Lines.ForEach((string line) => tmp += Environment.NewLine + "\t" + line.Split(':')[1]);
 
             return tmp;
         }

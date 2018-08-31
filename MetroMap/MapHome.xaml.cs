@@ -29,23 +29,34 @@ namespace MetroMap
 
         MapLayer pinLayer = new MapLayer();
 
-        MapLayer lineLayer = new MapLayer()
-        {
-        };
+        MapLayer lineLayer = new MapLayer();
+
+        MapLayer lineLabelLayer = new MapLayer();
+
+        MapLayer stopLabelLayer = new MapLayer();
+
+        MapLayer circleLayer = new MapLayer();
+
 
         public MapHome()
         {
             InitializeComponent();
             MetroMap.Center = NearStopsUri.CenterLocation;
             DataContext = NearStopsUri;
+            MetroMap.Children.Add(circleLayer);
             MetroMap.Children.Add(lineLayer);
             MetroMap.Children.Add(pinLayer);
+            MetroMap.Children.Add(lineLabelLayer);
+            MetroMap.Children.Add(stopLabelLayer);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             pinLayer.Children.Clear();
             lineLayer.Children.Clear();
+            lineLabelLayer.Children.Clear();
+            stopLabelLayer.Children.Clear();
+            circleLayer.Children.Clear();
 
             MetroMap.Center = NearStopsUri.CenterLocation;
             DrawCircle(NearStopsUri.CenterLocation, NearStopsUri.Dist);
@@ -59,12 +70,28 @@ namespace MetroMap
                 {
                     Location pinLocation = new Location(stop.Lat, stop.Lon);
 
+                    TextBlock label = new TextBlock()
+                    {
+                        Text = stop.ToString(),
+                        Background = new SolidColorBrush(Colors.AliceBlue),
+                        FontSize = 12,
+                        Padding = new Thickness(5),
+                    };
+
+                    Image busIcon = new Image()
+                    {
+                        Source = new BitmapImage(new Uri("./images/bus_symbol.png", UriKind.Relative))
+                    };
+
                     Pushpin pin = new Pushpin
                     {
                         Location = pinLocation,
+                        DataContext = label,
+                        Content = busIcon,
                     };
 
-                    ToolTipService.SetToolTip(pin, stop.Name);
+                    pin.MouseEnter += new MouseEventHandler(StopMouseEnter);
+                    pin.MouseLeave += new MouseEventHandler(StopMouseLeave);
 
                     pinLayer.Children.Add(pin);
                 }
@@ -85,46 +112,72 @@ namespace MetroMap
 
         private void DrawLine(MetroApp.Line line)
         {
-            var coords = line.Geometry.Coordinates[0];
-            Color lineColor = RgbFromString(line.Properties.Couleur);
-            Color textColor = RgbFromString(line.Properties.CouleurTexte);
-
-            MapPolyline polyline = new MapPolyline
+            if (line.Geometry.Coordinates != null)
             {
-                Stroke = new SolidColorBrush(lineColor),
-                StrokeThickness = 5,
-                Opacity = 0.7,
-                Locations = LocationsFromCoords(coords),
-            };
+                var coords = line.Geometry.Coordinates[0];
+                Color lineColor = RgbFromString(line.Properties.Couleur);
+                Color textColor = RgbFromString(line.Properties.CouleurTexte);
 
-            polyline.MouseEnter += new MouseEventHandler(lineMouseEnter);
-            polyline.MouseLeave += new MouseEventHandler(lineMouseLeave);
+                TextBlock label = new TextBlock
+                {
+                    Text = $"{line.Properties.Numero} - {line.Properties.Libelle}",
+                    Foreground = new SolidColorBrush(textColor),
+                    Background = new SolidColorBrush(lineColor),
+                    FontSize = 15,
+                };
 
-            TextBlock label = new TextBlock
-            {
-                Text = $"{line.Properties.Numero} - {line.Properties.Libelle}",
-                Foreground = new SolidColorBrush(textColor),
-                Background = new SolidColorBrush(lineColor),
-                FontSize = 20,
-                //Visibility = Collapse;
-            };
+                MapPolyline polyline = new MapPolyline
+                {
+                    Stroke = new SolidColorBrush(lineColor),
+                    StrokeThickness = 5,
+                    Opacity = 0.7,
+                    Locations = LocationsFromCoords(coords),
+                    DataContext = label,
+                };
 
-            lineLayer.Children.Add(label);
+                polyline.MouseEnter += new MouseEventHandler(LineMouseEnter);
+                polyline.MouseLeave += new MouseEventHandler(LineMouseLeave);
 
-            ToolTipService.SetToolTip(polyline, $"{line.Properties.Numero} - {line.Properties.Libelle}");
-
-            lineLayer.Children.Add(polyline);
+                lineLayer.Children.Add(polyline);
+            }
         }
 
-        private void lineMouseLeave(object sender, MouseEventArgs e)
+        private void LineMouseLeave(object sender, MouseEventArgs e)
         {
-
-            //MapLayer.SetPosition(label, new Location(coords[0][1], coords[0][0]));
+            MapPolyline line = e.OriginalSource as MapPolyline;
+            lineLabelLayer.Children.Remove(line.DataContext as FrameworkElement);
         }
 
-        private void lineMouseEnter(object sender, MouseEventArgs e)
+        private void LineMouseEnter(object sender, MouseEventArgs e)
         {
+            MapPolyline line = e.OriginalSource as MapPolyline;
+            UIElement label = line.DataContext as UIElement;
 
+            Point mousePosition = e.GetPosition((IInputElement)sender);
+            mousePosition.X += 12;
+            mousePosition.Y += 12;
+
+            Location loc = MetroMap.ViewportPointToLocation(mousePosition);
+            lineLabelLayer.AddChild(label, loc);
+        }
+
+        private void StopMouseLeave(object sender, MouseEventArgs e)
+        {
+            Pushpin stop = e.Source as Pushpin;
+            stopLabelLayer.Children.Remove(stop.DataContext as FrameworkElement);
+        }
+
+        private void StopMouseEnter(object sender, MouseEventArgs e)
+        {
+            Pushpin stop = e.Source as Pushpin;
+            TextBlock label = stop.DataContext as TextBlock;
+
+            Point position = e.GetPosition(MetroMap);
+            position.X += 12;
+            position.Y -= 50;
+
+            Location loc = MetroMap.ViewportPointToLocation(position);
+            stopLabelLayer.AddChild(label, loc);
         }
 
         private LocationCollection LocationsFromCoords(double[][] coords)
@@ -148,9 +201,17 @@ namespace MetroMap
             var Circle = new MapPolygon
             {
                 Fill = FillColor,
-                Locations = CalculateCircle(CenterPosition, Radius)
+                Locations = CalculateCircle(CenterPosition, Radius),
             };
-            pinLayer.Children.Add(Circle);
+
+            var Center = new MapPolygon
+            {
+                Fill = new SolidColorBrush(Colors.Yellow),
+                Locations = CalculateCircle(CenterPosition, 10),
+            };
+
+            circleLayer.Children.Add(Circle);
+            circleLayer.Children.Add(Center);
         }
 
         const double earthRadius = 6371000D;

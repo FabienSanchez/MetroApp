@@ -1,4 +1,5 @@
 ﻿using MetroAppRequest;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MetroAppTests
@@ -8,7 +9,7 @@ namespace MetroAppTests
         public string StopsToReturn { get; set; } = "";
         public string LinesToReturn { get; set; } = "";
 
-        public string Lines([Optional] string[] codes)
+        public string Lines([Optional] List<string> codes)
         {
             return LinesToReturn;
         }
